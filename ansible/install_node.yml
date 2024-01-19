@@ -3,7 +3,7 @@
   gather_facts: yes
   become: yes
   vars:
-    NODEJS_VERSION: "8"
+    NODEJS_VERSION: "18"
   tasks:
     - name: Install the gpg key for nodejs LTS
       apt_key:
