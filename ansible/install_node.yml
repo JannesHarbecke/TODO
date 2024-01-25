@@ -1,22 +1,23 @@
 ---
-- hosts: all
-  gather_facts: yes
-  become: yes
-  vars:
-    NODEJS_VERSION: "18"
+- name: Install Node.js and npm
+  hosts: all 
+  become: yes  
   tasks:
-    - name: Install the gpg key for nodejs LTS
-      apt_key:
-        url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
-        state: present
-    
-    - name: Install the nodejs LTS repos
-      apt_repository:
-        repo: "deb https://deb.nodesource.com/node_{{ NODEJS_VERSION }}.x {{ ansible_distribution_release }} main"
-        state: present
-        update_cache: yes
+    - name: Install Node.js and npm from NodeSource
+      ansible.builtin.block:
+        - name: Download Node.js setup script
+          ansible.builtin.get_url:
+            url: https://deb.nodesource.com/setup_16.x
+            dest: /tmp/node_setup.sh
+            mode: '0755'
 
-    - name: Install the nodejs
-      apt:
-        name: nodejs
-        state: present
+        - name: Execute the Node.js setup script
+          ansible.builtin.shell: /tmp/node_setup.sh
+          args:
+            removes: /tmp/node_setup.sh
+
+        - name: Install Node.js and npm
+          ansible.builtin.apt:
+            name: nodejs
+            state: latest
+            update_cache: yes
