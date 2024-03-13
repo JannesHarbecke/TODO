@@ -7,4 +7,3 @@
 
 - import_playbook: install_node.yml
 - import_playbook: install_docker.yml
-- import_playbook: playbook3.yml
