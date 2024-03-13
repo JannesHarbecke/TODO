@@ -21,14 +21,6 @@
         state: latest
       tags: setup
 
-    - name: Clone Application Repository
-      git:
-        repo: 'https://github.com/JannesHarbecke/TODO.git'
-        dest: /root/Todo/
-        clone: yes
-        update: yes
-      tags: deployment
-
     - name: Start Docker Containers
       docker_compose:
         project_src: /root/Todo/mongo/
