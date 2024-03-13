@@ -35,3 +35,26 @@
       ansible.builtin.apt:
         name: docker-ce
         state: latest
+
+---
+- name: Installiere Docker und starte Docker Compose
+  hosts: all
+  become: yes # Führt Aufgaben als root aus
+  tasks:
+    - name: Installiere Docker
+      apt:
+        name: docker.io
+        state: latest
+        update_cache: yes
+
+    - name: Installiere Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)
+        dest: /usr/local/bin/docker-compose
+        mode: 'u+x,g+x'
+
+    - name: Starte Docker Compose
+      docker_compose:
+        project_src: /root/Todo
+        state: present
+        restarted: yes
