@@ -1,0 +1,47 @@
+---
+- name: Deploy Todo Application
+  hosts: your_server_group
+  become: yes
+  tasks:
+    - name: Install Git
+      apt:
+        name: git
+        state: latest
+      tags: setup
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: latest
+      tags: setup
+
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        state: latest
+      tags: setup
+
+    - name: Clone Application Repository
+      git:
+        repo: 'https://github.com/JannesHarbecke/TODO.git'
+        dest: /root/Todo/
+        clone: yes
+        update: yes
+      tags: deployment
+
+    - name: Start Docker Containers
+      docker_compose:
+        project_src: /root/Todo/mongo/
+        state: present
+        restarted: yes
+      tags: docker
+
+    - name: Ensure MongoDB is started before continuing
+      wait_for:
+        port: 27017
+        delay: 10
+      tags: docker
+
+    - name: Start Todo Backend Application
+      command: docker run -d --name todo-backend -p 80:80 todo-backend
+      tags: application
