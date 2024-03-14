@@ -1,6 +1,6 @@
 ---
 - name: Configure and Start server.js as a Service
-  hosts: all
+  hosts: localhost
   become: yes # Führt Aufgaben als root aus
   tasks:
   - name: Stelle sicher, dass Node.js installiert ist
