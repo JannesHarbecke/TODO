@@ -35,3 +35,8 @@
       ansible.builtin.apt:
         name: docker-ce
         state: latest
+        
+    - name: Run Docker Compose up
+      ansible.builtin.shell: cd /root/Todo/todo-backend && docker-compose up -d
+      args:
+        executable: /bin/bash
