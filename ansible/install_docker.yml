@@ -27,6 +27,6 @@
       tags: docker
         
     - name: Run Docker Compose up
-      ansible.builtin.shell: cd /root/Todo/todo-backend && docker-compose up -d
+      ansible.builtin.shell: cd /root/Todo/mongo && docker-compose up -d
       args:
         executable: /bin/bash
