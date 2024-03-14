@@ -6,35 +6,25 @@
     - name: Update APT 
       ansible.builtin.apt:
         update_cache: yes
-
-    - name: Install packages
-      ansible.builtin.apt:
-        name: "{{ packages }}"
-      vars:
-        packages:
-        - apt-transport-https
-        - ca-certificates
-        - curl
-        - software-properties-common
-
-    - name: Add Dockers Key
-      ansible.builtin.apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
-
-    - name: Set up the Docker repository
-      ansible.builtin.apt_repository:
-        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable"
-        state: present
-
-    - name: Update apt Repo
-      ansible.builtin.apt:
-        update_cache: yes
-
+    
     - name: Install Docker
-      ansible.builtin.apt:
-        name: docker-ce
+      apt:
+        name: docker.io
         state: latest
+      tags: setup
+
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        state: latest
+      tags: setup
+
+    - name: Start Docker Containers
+      docker_compose:
+        project_src: /root/Todo/mongo/
+        state: present
+        restarted: yes
+      tags: docker
         
     - name: Run Docker Compose up
       ansible.builtin.shell: cd /root/Todo/todo-backend && docker-compose up -d
