@@ -21,7 +21,7 @@
 
     - name: Start Docker Containers
       docker_compose:
-        project_src: /root/Todo/mongo/
+        project_src: /root/Todo-main/Todo/mongo
         state: present
         restarted: yes
       tags: docker
