@@ -30,7 +30,7 @@
   - name: Installiere erforderliche npm-Pakete
     command: npm install mongoose cors express
     args:
-      chdir: /root/Todo/todo-backend/
+      chdir: /root/TODO-main/Todo/todo-backend/
     become: yes
     become_user: root
 
@@ -45,7 +45,7 @@
         Environment=NODE_PORT=3000
         Type=simple
         User=root
-        ExecStart=/usr/bin/node /root/Todo/todo-backend/server.js
+        ExecStart=/usr/bin/node /root/TODO-main/Todo/todo-backend/server.js
         Restart=on-failure
 
         [Install]
