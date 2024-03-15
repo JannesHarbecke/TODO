@@ -1,0 +1,26 @@
+- name: Kopiere Verzeichnisse nach root/TODO-main/Todo/
+  hosts: localhost
+  tasks:
+    - name: Sicherstellen, dass das Zielverzeichnis für todo-backend existiert
+      ansible.builtin.file:
+        path: "/root/TODO-main/Todo/todo-backend"
+        state: directory
+
+    - name: Kopiere todo-backend nach root/TODO-main/Todo/
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/Todo/todo-backend/"
+        dest: "/root/TODO-main/Todo/todo-backend/"
+        remote_src: yes
+        directory_mode: yes
+
+    - name: Sicherstellen, dass das Zielverzeichnis für mongo existiert
+      ansible.builtin.file:
+        path: "/root/TODO-main/Todo/mongo"
+        state: directory
+
+    - name: Kopiere mongo nach root/TODO-main/Todo/
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/Todo/mongo/"
+        dest: "/root/TODO-main/Todo/mongo/"
+        remote_src: yes
+        directory_mode: yes
