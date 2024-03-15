@@ -8,7 +8,7 @@
 
     - name: Kopiere todo-backend nach root/TODO-main/Todo/
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/Todo/todo-backend/"
+        src: "{{ playbook_dir }}/todo-backend/"
         dest: "/root/TODO-main/Todo/todo-backend/"
         remote_src: yes
         directory_mode: yes
@@ -20,7 +20,7 @@
 
     - name: Kopiere mongo nach root/TODO-main/Todo/
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/Todo/mongo/"
+        src: "{{ playbook_dir }}/mongo/"
         dest: "/root/TODO-main/Todo/mongo/"
         remote_src: yes
         directory_mode: yes
