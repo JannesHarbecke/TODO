@@ -21,12 +21,12 @@
 
     - name: Start Docker Containers
       docker_compose:
-        project_src: /root/Todo-main/Todo/mongo
+        project_src: /root/TODO-main/Todo/mongo
         state: present
         restarted: yes
       tags: docker
         
     - name: Run Docker Compose up
-      ansible.builtin.shell: cd /root/Todo-main/Todo/mongo && docker-compose up -d
+      ansible.builtin.shell: cd /root/TODO-main/Todo/mongo && docker-compose up -d
       args:
         executable: /bin/bash
